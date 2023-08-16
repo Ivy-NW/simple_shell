@@ -27,37 +27,6 @@ This project is a simple shell implementation, also known as a command-line inte
 4. The shell prompt will be displayed, allowing you to enter commands and interact with the shell.
 5. Enter `help` or `man` command within the shell to get information about available commands and their usage.
 
-### Usage
-
-After compilation, the resulting program can run stand-alone, either in interactive or non-interactive mode.
-
-#### Interactive Mode
-
-In interactive mode, simply run the program and wait for the prompt to appear. From there, you can type commands freely, exiting with either the "exit" command or ctrl-D.
-
-#### Non-Interactive Mode
-
-In non-interactive mode, echo your desired command and pipe it into the program like this:
-
-```sh
-echo "ls" | ./shell
-```
-
-In non-interactive mode, the program will exit after finishing your desired command(s).
-
-#### Included Built-Ins
-
-Our shell has support for the following built-in commands:
-
-| Command             | Definition                                                                                |
-| ------------------- | ----------------------------------------------------------------------------------------- |
-| exit [n]            | Exit the shell, with an optional exit status, n.                                          |
-| env                 | Print the environment.                                                                    |
-| setenv [var][value] | Set an environment variable and value. If the variable exists, the value will be updated. |
-| unsetenv [var]      | Remove an environment variable.                                                           |
-| cd [dir]            | Change the directory.                                                                     |
-| help [built-in]     | Read documentation for a built-in.                                                        |
-
 ### Credits
 
 All code has been written by [Ivy Njoroge](https://github.com/irisvlack) and [Marcus Ngugi](https://github.com/Marcusngugi25)
