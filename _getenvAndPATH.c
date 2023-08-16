@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  *_getenv - A function that compares the input
  *value to an environment variable.
@@ -7,6 +8,7 @@
  *Return: The pointer to the output of the environment variable or
  *returns NULL otherwise.
  */
+
 char *_getenv(const char *name)
 {
 	int i, j;
@@ -29,12 +31,14 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
+
 /**
  *_getPATH - a function that separates each directory of PATH on a newline
  *@str: a pointer to the value of PATH
  *@tok_UsInput: the tokenized user input
  *Return: a linked list that stores each directory in the PATH
  */
+
 char **_getPATH(char *str, char **tok_UsInput)
 {
 	char *tok_PATH, *tempstr, *fwd_slash, **temp_arr, *PATH_cpy;

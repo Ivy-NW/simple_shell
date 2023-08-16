@@ -1,9 +1,11 @@
 #include "main.h"
+
 /**
  *_createToken - a function that mallocs space to create tokens
  *@user_input: Takes the input from users
  *Return: The newly malloc'd space
  */
+
 char **_createToken(char *user_input)
 {
 	char **commands;
@@ -21,6 +23,7 @@ char **_createToken(char *user_input)
 	}
 	return (commands);
 }
+
 /**
  *_createChild_P - a function that creates a child process and executes
  *each directory found in the PATH with each user input appended at the end
@@ -28,6 +31,7 @@ char **_createToken(char *user_input)
  *@_getPATH_res: A variable that takes in the PATH that's been split up
  *into individual directories
  */
+
 void _createChild_P(char **arrayStr, char **_getPATH_res)
 {
 	pid_t child_p;
@@ -55,10 +59,12 @@ void _createChild_P(char **arrayStr, char **_getPATH_res)
 	else
 		wait(&waiting);
 }
+
 /**
  *_createChild - a function that executes the user input that begin with "/"
  *@arrayStr: a variable that holds the user input
  */
+
 void _createChild(char **arrayStr)
 {
 	pid_t child_p;

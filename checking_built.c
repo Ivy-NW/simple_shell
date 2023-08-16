@@ -34,21 +34,25 @@ int checking_built(char **arr)
 	}
 	return (1);
 }
+
 /**
  *ex_it - a builtin function that frees the tokenized user input
  *@arr: the variable that holds the tokenized user input
  */
+
 void ex_it(char **arr)
 {
 	free(arr);
 	write(STDOUT_FILENO, "Exiting the process\n", 21);
 	_exit(0);
 }
+
 /**
- *environment - a builtin funtion that gets the
+ *environment - a builtin function that gets the
  *environment of the user's computer
  *@arr: a variable that takes in the userinput
  */
+
 void environment(char **arr)
 {
 	int i, len;
