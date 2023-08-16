@@ -15,6 +15,7 @@ extern char **environ;
  *@ptr: a variable that is a function pointer that takes in a char **
  *as an argument
  */
+
 typedef struct builtins_s{
 	char *command;
 	void (*ptr)(char **);

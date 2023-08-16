@@ -1,11 +1,13 @@
 #include "main.h"
+
 /**
  *_strdup - A function that takes in the string as a parameter
  *@str: A pointer that points the memory address
  *that holds the string
- *Return: A pointer to a duplicated string or rturns NULL if
+ *Return: A pointer to a duplicated string or returns NULL if
  *there was insufficient memory.
  */
+
 char *_strdup(char *str)
 {
 	unsigned int a, i;
@@ -35,12 +37,14 @@ char *_strdup(char *str)
 	p[i] = '\0';
 	return (p);
 }
+
 /**
  *_strcat - A function that concatenates two strings.
  *@dest: a variable that holds the string that will be appended to src.
  *@src: a variable that holds a string that will be appended to.
  *Return: The wole string is returned.
  */
+
 char *_strcat(char *dest, char *src)
 {
 	int i, a;
@@ -60,6 +64,7 @@ char *_strcat(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+
 /**
  *_strcpy - Function that copies the string pointed to by src, including the
  *terminating null byte, to the buffer pointed to by dest
@@ -67,6 +72,7 @@ char *_strcat(char *dest, char *src)
  *@dest: variable receiving the string.
  *Return: The string is returned.
  */
+
 char *_strcpy(char *dest, char *src)
 {
 	int i;
@@ -78,6 +84,7 @@ char *_strcpy(char *dest, char *src)
 	dest[i] = src[i];
 	return (dest);
 }
+
 /**
  *_strstr - finds the first occurence of the substring needle in the string
  *haystack.
@@ -85,6 +92,7 @@ char *_strcpy(char *dest, char *src)
  *@needle: A variable that is affecting haystack.
  *Return: The null if the word is not there.
  */
+
 char *_strstr(char *haystack, char *needle)
 {
 	int i, i2, b;
@@ -108,6 +116,7 @@ char *_strstr(char *haystack, char *needle)
 	}
 	return (0);
 }
+
 /**
  *_memset - a function that fills memory with a constant byte.
  *@s: a pointer that points to the memory area
@@ -115,6 +124,7 @@ char *_strstr(char *haystack, char *needle)
  *@n: a fixed number of bytes
  *Return: returns new output
  */
+
 char *_memset(char *s, char b, unsigned int n)
 {
 	unsigned int m = 0;

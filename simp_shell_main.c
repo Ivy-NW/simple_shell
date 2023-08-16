@@ -1,8 +1,10 @@
 #include "main.h"
+
 /**
  *main - a function that prompts the user for input to run shell commands
  *Return: The function will return 0 on success
  */
+
 int main(void)
 {
 	char *user_input, **arrayStr, *env_result, **_getPATH_res;
