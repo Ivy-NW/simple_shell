@@ -1,0 +1,307 @@
+.TH HSH 1
+.SH NAME
+hsh \- the Holberton Shell
+.SH SYNOPSIS
+.B hsh
+[file or arguements]
+.SH DESCRIPTION
+.I  hsh
+is a command language interpreter that executes commands read
+from standard input or from a file. A full manual on docomentation can
+be found in the readme file.
+.B hsh
+does not handle any option processing like bash or zsh.
+.SH ARGUEMENTS
+The first argument read from standard inputis assumed to be the command 
+and following arguments are its parameters. To invoke a script or file,
+the first arguement is assumed to be the filename, no other options are
+necessary.
+.PP
+.B hsh
+reads and executes commands from standard input or the file, then exits.
+.PP
+.B hsh
+exit status is the exit status of the last command executed in the input.
+If no commands are executed, the exit status is 0. An attempt is first 
+made to open the file in the current directory, and, if no file is found
+, then the shell searches the directories in PATH for the script.
+.SH SHELL GRAMMAR
+.B Simple Command
+is a sequence of optional variable assignments followed by a blank separated
+words or redirectors, and terminated by a control operator. Blanks include
+new lines, tabs. The first word specifies the command to be executed, and is
+passed as arguement zero, the remaining words are passed as arguements to the
+command.
+.PP
+The return value of a command is its exit status, genearlly 0 if success and
+127 or 2 (builtin's) for failure.
+.PP
+.B Comments
+.PP
+Comments can be added to standard input using the
+.B#
+before any arguements or words to comment out.
+.PP
+.I Example:
+echo hello #holberton
+.PP
+This will only write hello to standard output.
+.PP
+.B Lists
+.PP
+A list is a sequence of one or more pipeline operators
+.B ;, &&, ||
+.
+.PP
+Of the list, the
+.B &&
+and
+.B ||
+have equal precedence.
+.PP
+The AND (&&) and OR (||) lists are executed with left associativity.
+An AND list has the form
+.PP
+.I command1
+.B &&
+.I command2
+.PP
+command2 is executed if, and only if command1 returns an exit status of 0.
+.PP
+.I command1
+.B ||
+.I command2
+.PP
+command2 is executed if, and only if command1 returns an a non-zero exit status.
+The return status of AND and OR is the exit status of the last command executed.
+.PP
+.I command1
+.B ;
+.I command2
+.PP
+command2 is executed regardless of command1's exit status.
+.SH PARAMETERS
+A parameter is an entity that stores values. It can be a name, a number, or one
+of the special characters listed below under Special Parameters. A variable is a
+parameter denoted by a name. A variable has a value and zero or more attributes.
+Attributes are assigned using the setenv builtin command (see setenv below in
+SHELL BUILTIN COMMANDS).
+.PP
+A parameter is set if it has been assigned a value. The null string is a valid
+value. Once a variable is set, it may be unset only by using the unset builtin
+command (see SHELL BUILTIN COMMANDS below).
+.PP
+.B Special Parameters
+.PP
+The shell treats several parameters specially. These parameters may only be
+referenced; assignment to them is not allowed. All special parameters begin with
+.B $
+, following another special character. Parameters are described below.
+.PP
+.B ?
+.PP
+Expands to the exit status of the most recently executed foreground pipeline.
+.PP
+.B $
+.PP
+Expands to the process ID of the shell. In a () subshell, it expands to the 
+process ID of the current shell, not the subshell.
+.PP
+.B Parameter Expansion
+.PP
+The '$' character introduces parameter expansion and command substitution. The 
+parameter name is not enclosed in any braces
+.PP
+$Parameter
+.PP
+To view a list of all parameters and environemental variables, the builtin
+.B env
+is used. Or to view the value of a specific parameters simply
+.PP
+echo $parameter
+.PP
+in the standard input.
+.SH ALIASES
+Aliases allow a string to be substituted for a word when it is used as the first
+word of a simple command. The shell maintains a list of aliases that may be set
+and unset with the alias and unalias builtin commands (see SHELL BUILTIN
+COMMANDS below). The first word of each simple command, if unquoted, is checked
+to see if it has an alias. If so, that word is replaced by the text of the
+alias. The characters /, $, `, and = and any of the shell or quoting characters
+listed above may not appear in an alias name. The replacement text may contain
+any valid shell input, including shell metacharacters. The first word of the
+replacement text is tested for aliases, but a word that is identical to an alias
+being expanded is not expanded a second time.
+.PP
+Aliases are expanded when a command is read, not when it is executed. Therefore
+, an alias definition appearing on the same line as another command does not
+take effect until  next line of input is read. The commands following  alias
+definition on that line are not affected by the new alias.
+.PP
+.SH ENVIRONMENT
+When a program is invoked it is given an array of strings called the 
+environment. This is a list of name-value pairs, of the form name=value.
+.PP
+The shell provides several ways to manipulate the environment. On invocation,
+the shell scans its own environment and creates a parameter for each name found
+, automatically marking it for export to child processes. Executed commands
+inherit the environment.
+.PP
+.SH EXIT STATUS
+The exit status of an executed command is the value returned by the wait system 
+call or equivalent function. If commands succeed, they return 0, else they
+return 127. Builtin commands return 0 on success and 2 on failure.
+.PP
+If a command is not found, the child process created to execute it returns
+ a status of 127. 
+.PP
+.SH HISTORY
+When the history option to the set builtin is enabled, the shell provides access
+to the command history, the list of commands previously typed. The shell stores
+each command in the history list prior to parameter and variable expansion.
+.PP
+On startup, the history is initialized from the file
+.B .simple_shell_history
+This file is truncated and overwritten but can contain as many lines as needed.
+If the file does not exist, the file is created upon being written.
+.PP
+When the history builtin is used, only the previous 10 commands are shown with
+the line number, starting at 0000 to 00009.
+.PP
+0000 ls
+.PP
+0001 pwd
+.PP
+0002 cd ..
+.PP
+0003 ls
+.PP
+...
+.PP
+.SH SHELL BUILTIN COMMANDS
+.B hsh
+contains some builtin functions. These are listed below and do not support any
+flags.
+.PP
+.PP
+.B alias [name[=value]]
+.PP
+Alias with no arguments or with prints the list of aliases in the form alias 
+name=value on standard output. When arguments are supplied, an alias is defined 
+for each name whose value is given. A trailing space in value causes the next 
+word to be checked for alias substitution when the alias is expanded. For each 
+name in the argument list for which no value is supplied, the name and value of 
+the alias is printed. Alias returns true unless a name is given for which no 
+alias has been defined.
+.PP
+.PP
+.I Example:
+alias l=ls
+.PP
+.PP
+This sets the key
+.I l
+to
+.I ls
+so when a user enters l in the stdin, the l is replaced by ls.
+.PP
+.PP
+.B cd
+[dir]
+.PP
+Change the current directory to dir. The variable HOME is the default dir.
+An argument of - is equivalent to $OLDPWD. If a non-empty directory name from 
+CDPATH is used, or if - is the first argument, and the directory change is
+successful, the absolute pathname of the new working directory is written to the
+standard output. The return value is true if the directory was successfully 
+changed; false otherwise. If the first argument is ~, it leads to the HOME
+directory.
+.PP
+.B env
+.PP
+Prints out a list of all shell variables. Each variable is separated by a new
+line. Each variable is outputed as followed
+.I key=value
+.PP
+.I Example:
+env
+.PP
+This prints out all the environemental variables and its values.
+.PP
+.B exit
+[status]
+.PP
+The exit command terminates the current shell (or script).
+If
+.I status
+is given, the return code to the parent process is set to
+.I status.
+If not, the returned status the the status of the most recently
+ executed command (i.e. $?).
+.PP
+.I Example:
+exit 3
+.PP
+.PP
+Exits the shell and explicitely set its exit status to 3.
+.PP
+.PP
+.B history
+.PP
+With no options, display the history list with line numbers. History displays
+previous 4096 commands.
+.PP
+Upon success, history returns 0 and on failure, a status of 2. More information
+on history can be read in the history section above.
+.PP
+.PP
+.B setenv
+[key] [value]
+.PP
+Creates a new shell/environemental variable. If the variable
+.I key
+does not exist,then a new variable is created given the
+.I value.
+If the variable key does exist, then the value is replaced by the given value.
+.PP
+.PP
+.I Example:
+setenv holberton betty
+.PP
+If holberton does not exist as a variable, then the key holberton is set with the
+value of betty.
+.PP
+Upon success,
+.B setenv
+will return an exit status of 0 and an exit status of 2 if failed.
+.PP
+.B unsetenv
+[key]
+.PP
+Unsets and removes a shell/environment variable. To unset a variable, only the
+key or name can be given. If the variable is present, then it will remove the
+variable from env. If the variable does not exist, the function still succeds,
+and the environement is unchanged.
+.PP
+.PP
+If success, function returns 0 and 2 on error.
+.PP
+.SH FILES
+.I ~/.simple_shell_history
+.PP
+File containing history of commands used
+.PP
+.SH AUTHORS
+Ivy Njoroge, Aspiring Software Enginner
+.PP
+Marcus Ngángá, Aspiring Software Egineer
+.PP
+.SH "SEE ALSO"
+bash(1), zsh(1)
+.SH "BUGS"
+.PP
+Multiple comments do not work.
+.PP
+If you find any bugs in
+.B hsh
+you should report it.
